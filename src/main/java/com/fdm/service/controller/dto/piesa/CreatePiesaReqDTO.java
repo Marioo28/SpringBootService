@@ -9,4 +9,5 @@ public class CreatePiesaReqDTO {
     private String nume;
     private String categorie;
     private int stoc;
+
 }
