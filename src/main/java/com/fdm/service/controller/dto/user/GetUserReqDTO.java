@@ -7,11 +7,6 @@ import lombok.Setter;
 @Getter
 @Setter
 @Builder
-public class CreateUserRespDTO {
+public class GetUserReqDTO {
     private String username;
-    private String firstName;
-    private String lastName;
-    private String password;
-    private int age;
-    private String type;
 }

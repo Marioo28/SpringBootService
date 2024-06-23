@@ -1,14 +1,19 @@
 package com.fdm.service.service.mapper;
 
-import com.fdm.service.controller.dto.piesa.CreatePiesaReqDTO;
-import com.fdm.service.controller.dto.piesa.CreatePiesaRespDTO;
-import com.fdm.service.controller.dto.piesa.ViewPiesaRespDTO;
+import com.fdm.service.controller.dto.piesa.*;
+import com.fdm.service.controller.dto.user.UpdateUserReqDTO;
+import com.fdm.service.repository.PiesaRepository;
 import com.fdm.service.repository.entity.PiesaEntity;
 import com.fdm.service.service.model.Piesa;
 import org.springframework.stereotype.Component;
 
 @Component
 public class PiesaMapper {
+    private final PiesaRepository piesaRepository;
+
+    public PiesaMapper(PiesaRepository piesaRepository) {
+        this.piesaRepository = piesaRepository;
+    }
 
     public Piesa createPiesaReqDtoToPiesa(CreatePiesaReqDTO createPiesaReqDTO) {
         return Piesa.builder()
@@ -48,5 +53,24 @@ public class PiesaMapper {
                 .nume(piesaModel.getNume())
                 .stoc(piesaModel.getStoc())
                 .build();
+    }
+
+    public UpdatePiesaRespDTO updatePiesaRespDTO(Piesa piesaModel){
+        return UpdatePiesaRespDTO.builder()
+                .categorie(piesaModel.getCategorie())
+                .nume(piesaModel.getNume())
+                .stoc(piesaModel.getStoc())
+                .build();
+    }
+    public Piesa updatePiesaDTOtOPisa(UpdatePiesaReqDTO updatePiesaReqDTO){
+        return Piesa.builder()
+                .categorie(updatePiesaReqDTO.getCategorie())
+                .nume(updatePiesaReqDTO.getNume())
+                .stoc(updatePiesaReqDTO.getStoc())
+                .build();
+    }
+
+    public void deletePiesaById(Integer piesaId){
+        piesaRepository.deleteById(piesaId);
     }
 }

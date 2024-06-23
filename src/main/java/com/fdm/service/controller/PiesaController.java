@@ -1,8 +1,6 @@
 package com.fdm.service.controller;
 
-import com.fdm.service.controller.dto.piesa.CreatePiesaReqDTO;
-import com.fdm.service.controller.dto.piesa.CreatePiesaRespDTO;
-import com.fdm.service.controller.dto.piesa.ViewPiesaRespDTO;
+import com.fdm.service.controller.dto.piesa.*;
 import com.fdm.service.service.PiesaService;
 import com.fdm.service.service.mapper.PiesaMapper;
 import com.fdm.service.service.model.Piesa;
@@ -33,4 +31,16 @@ public class PiesaController {
     public List<ViewPiesaRespDTO> getAllPiese(){
         return piesaService.getAllPiese();
     }
+
+
+    @PutMapping(path = "/{piesaId}")
+   public UpdatePiesaRespDTO updatePiesaR(@PathVariable Integer piesaId, @RequestBody UpdatePiesaReqDTO updatePiesaReqDTO){
+    Piesa piesaModel = piesaMapper.updatePiesaDTOtOPisa(updatePiesaReqDTO);
+    return piesaService.updatePiesa(piesaId,piesaModel);
+   }
+
+   @DeleteMapping("/{piesaId}")
+   public void deletePiesa(@PathVariable Integer piesaId){
+        piesaService.deletePiesa(piesaId);
+   }
 }

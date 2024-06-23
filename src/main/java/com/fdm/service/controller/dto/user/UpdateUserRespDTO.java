@@ -7,7 +7,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Builder
-public class CreateUserRespDTO {
+public class UpdateUserRespDTO {
     private String username;
     private String firstName;
     private String lastName;

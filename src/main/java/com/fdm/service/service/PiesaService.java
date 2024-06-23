@@ -1,6 +1,7 @@
 package com.fdm.service.service;
 
 import com.fdm.service.controller.dto.piesa.CreatePiesaRespDTO;
+import com.fdm.service.controller.dto.piesa.UpdatePiesaRespDTO;
 import com.fdm.service.controller.dto.piesa.ViewPiesaRespDTO;
 import com.fdm.service.repository.PiesaRepository;
 import com.fdm.service.repository.entity.PiesaEntity;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PiesaService {
@@ -46,5 +48,20 @@ public class PiesaService {
         }
 
         return viewPiesaRespDTOList;
+    }
+
+    public UpdatePiesaRespDTO updatePiesa(Integer piesaId, Piesa piesaModel) {
+        Optional<PiesaEntity> piesaEntityOptional = piesaRepository.findAllById(piesaId);
+        PiesaEntity piesaEntity = piesaEntityOptional.get();
+        piesaEntity = piesaMapper.piesaModelToPiesaEntity(piesaModel);
+        piesaEntity.setId(piesaId);
+        PiesaEntity userEntityUpdate = piesaRepository.save(piesaEntity);
+        Piesa piesa = piesaMapper.piesaEntityToPiesaModel(userEntityUpdate);
+        return  piesaMapper.updatePiesaRespDTO(piesa);
+
+    }
+
+    public void deletePiesa(Integer piesaId) {
+        piesaRepository.deleteById(piesaId);
     }
 }
