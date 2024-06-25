@@ -4,6 +4,8 @@ import com.fdm.service.controller.dto.piesa.*;
 import com.fdm.service.service.PiesaService;
 import com.fdm.service.service.mapper.PiesaMapper;
 import com.fdm.service.service.model.Piesa;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,25 +24,30 @@ public class PiesaController {
     }
 
     @PostMapping(path = "/create")
-    public CreatePiesaRespDTO createPiesa(@RequestBody CreatePiesaReqDTO createPiesaReqDTO) {
+    public ResponseEntity<CreatePiesaRespDTO> createPiesa(@RequestBody CreatePiesaReqDTO createPiesaReqDTO) {
         Piesa piesaModel = piesaMapper.createPiesaReqDtoToPiesa(createPiesaReqDTO);
-        return piesaService.createPiesa(piesaModel);
+        return ResponseEntity.status(HttpStatus.CREATED).body(piesaService.createPiesa(piesaModel));
     }
 
     @GetMapping(path = "/all")
-    public List<ViewPiesaRespDTO> getAllPiese(){
-        return piesaService.getAllPiese();
+    public ResponseEntity<List<ViewPiesaRespDTO>> getAllPiese() {
+        return ResponseEntity.ok(piesaService.getAllPiese());
     }
 
-
     @PutMapping(path = "/{piesaId}")
-   public UpdatePiesaRespDTO updatePiesaR(@PathVariable Integer piesaId, @RequestBody UpdatePiesaReqDTO updatePiesaReqDTO){
-    Piesa piesaModel = piesaMapper.updatePiesaDTOtOPisa(updatePiesaReqDTO);
-    return piesaService.updatePiesa(piesaId,piesaModel);
-   }
+    public ResponseEntity<UpdatePiesaRespDTO> updatePiesa(@PathVariable Integer piesaId, @RequestBody UpdatePiesaReqDTO updatePiesaReqDTO) {
+        Piesa piesaModel = piesaMapper.updatePiesaDTOtOPisa(updatePiesaReqDTO);
+        return ResponseEntity.ok(piesaService.updatePiesa(piesaId, piesaModel));
+    }
 
-   @DeleteMapping("/{piesaId}")
-   public void deletePiesa(@PathVariable Integer piesaId){
+    @DeleteMapping("/{piesaId}")
+    public ResponseEntity<Void> deletePiesa(@PathVariable Integer piesaId) {
         piesaService.deletePiesa(piesaId);
-   }
+        return ResponseEntity.ok().build();
+    }
+
+    @GetMapping(path = "/{piesaId}")
+    public ResponseEntity<GetPiesaRespDTO> getPiesaById(@PathVariable int piesaId) {
+        return ResponseEntity.status(HttpStatus.FOUND).body(piesaService.getPiesaById(piesaId));
+    }
 }

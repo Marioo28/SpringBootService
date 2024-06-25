@@ -1,6 +1,7 @@
 package com.fdm.service.service.mapper;
 
 import com.fdm.service.controller.dto.piesa.*;
+import com.fdm.service.controller.dto.user.GetUserRespDTO;
 import com.fdm.service.controller.dto.user.UpdateUserReqDTO;
 import com.fdm.service.repository.PiesaRepository;
 import com.fdm.service.repository.entity.PiesaEntity;
@@ -47,7 +48,7 @@ public class PiesaMapper {
                 .build();
     }
 
-    public ViewPiesaRespDTO piesaModelToViewPiesaRespDTO(Piesa piesaModel){
+    public ViewPiesaRespDTO piesaModelToViewPiesaRespDTO(Piesa piesaModel) {
         return ViewPiesaRespDTO.builder()
                 .categorie(piesaModel.getCategorie())
                 .nume(piesaModel.getNume())
@@ -55,14 +56,15 @@ public class PiesaMapper {
                 .build();
     }
 
-    public UpdatePiesaRespDTO updatePiesaRespDTO(Piesa piesaModel){
+    public UpdatePiesaRespDTO updatePiesaRespDTO(Piesa piesaModel) {
         return UpdatePiesaRespDTO.builder()
                 .categorie(piesaModel.getCategorie())
                 .nume(piesaModel.getNume())
                 .stoc(piesaModel.getStoc())
                 .build();
     }
-    public Piesa updatePiesaDTOtOPisa(UpdatePiesaReqDTO updatePiesaReqDTO){
+
+    public Piesa updatePiesaDTOtOPisa(UpdatePiesaReqDTO updatePiesaReqDTO) {
         return Piesa.builder()
                 .categorie(updatePiesaReqDTO.getCategorie())
                 .nume(updatePiesaReqDTO.getNume())
@@ -70,7 +72,15 @@ public class PiesaMapper {
                 .build();
     }
 
-    public void deletePiesaById(Integer piesaId){
+    public void deletePiesaById(Integer piesaId) {
         piesaRepository.deleteById(piesaId);
+    }
+
+    public GetPiesaRespDTO piesaModelToGetPiesaRespDTO(Piesa piesaModel) {
+        return GetPiesaRespDTO.builder()
+                .categorie(piesaModel.getCategorie())
+                .nume(piesaModel.getNume())
+                .stoc(piesaModel.getStoc())
+                .build();
     }
 }

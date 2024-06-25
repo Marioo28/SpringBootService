@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class UserMapper {
 
-    public User createUserReqDtoToUser(CreateUserReqDTO createUserReqDTO){
+    public User createUserReqDtoToUser(CreateUserReqDTO createUserReqDTO) {
         return User.builder()
                 .username(createUserReqDTO.getUsername())
                 .age(createUserReqDTO.getAge())
@@ -19,7 +19,7 @@ public class UserMapper {
                 .build();
     }
 
-    public CreateUserRespDTO userModelToCreateUserRespDTO(User userModel){
+    public CreateUserRespDTO userModelToCreateUserRespDTO(User userModel) {
         return CreateUserRespDTO.builder()
                 .username(userModel.getUsername())
                 .age(userModel.getAge())
@@ -30,7 +30,7 @@ public class UserMapper {
                 .build();
     }
 
-    public UserEntity userModelToUserEntity(User userModel){
+    public UserEntity userModelToUserEntity(User userModel) {
         return UserEntity.builder()
                 .username(userModel.getUsername())
                 .age(userModel.getAge())
@@ -41,7 +41,7 @@ public class UserMapper {
                 .build();
     }
 
-    public User userEtityToUserModel(UserEntity userEntity){
+    public User userEtityToUserModel(UserEntity userEntity) {
         return User.builder()
                 .username(userEntity.getUsername())
                 .age(userEntity.getAge())
@@ -52,7 +52,7 @@ public class UserMapper {
                 .build();
     }
 
-    public ViewUserRespDTO userModelToviewUserRespDTO(User userModel){
+    public ViewUserRespDTO userModelToviewUserRespDTO(User userModel) {
         return ViewUserRespDTO.builder()
                 .username(userModel.getUsername())
                 .age(userModel.getAge())
@@ -64,11 +64,11 @@ public class UserMapper {
     }
 
 
-    public DeleteUserReqDTO deleteUserReqDTO(Integer id){
+    public DeleteUserReqDTO deleteUserReqDTO(Integer id) {
         return deleteUserReqDTO(id);
     }
 
-    public UpdateUserRespDTO userModelToUpdateUserRespDTO(User userModel){
+    public UpdateUserRespDTO userModelToUpdateUserRespDTO(User userModel) {
         return UpdateUserRespDTO.builder()
                 .username(userModel.getUsername())
                 .age(userModel.getAge())
@@ -78,7 +78,8 @@ public class UserMapper {
                 .password(userModel.getPassword())
                 .build();
     }
-    public User updateUserReqDtoToUser(UpdateUserReqDTO updateUserReqDTO){
+
+    public User updateUserReqDtoToUser(UpdateUserReqDTO updateUserReqDTO) {
         return User.builder()
                 .username(updateUserReqDTO.getUsername())
                 .age(updateUserReqDTO.getAge())
@@ -90,4 +91,13 @@ public class UserMapper {
     }
 
 
+    public GetUserRespDTO userModelToGetUserRespDTO(User userModel) {
+        return GetUserRespDTO.builder()
+                .username(userModel.getUsername())
+                .age(userModel.getAge())
+                .type(userModel.getType())
+                .firstName(userModel.getFirstName())
+                .lastName(userModel.getLastName())
+                .build();
+    }
 }

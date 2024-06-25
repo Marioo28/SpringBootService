@@ -7,6 +7,5 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface PiesaRepository extends JpaRepository<PiesaEntity,Integer> {
-    Optional<PiesaEntity> findAllById(Integer piesaId);
+public interface PiesaRepository extends JpaRepository<PiesaEntity, Integer> {
 }

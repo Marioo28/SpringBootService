@@ -4,6 +4,8 @@ import com.fdm.service.controller.dto.user.*;
 import com.fdm.service.service.UserService;
 import com.fdm.service.service.mapper.UserMapper;
 import com.fdm.service.service.model.User;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,28 +24,32 @@ public class UserController {
     }
 
     @PostMapping(path = "/create")
-    public CreateUserRespDTO createUser(@RequestBody CreateUserReqDTO createUserReqDTO){
+    public ResponseEntity<CreateUserRespDTO> createUser(@RequestBody CreateUserReqDTO createUserReqDTO) {
         User userModel = userMapper.createUserReqDtoToUser(createUserReqDTO);
-        return userService.createUser(userModel);
+        CreateUserRespDTO createUserRespDTO = userService.createUser(userModel);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createUserRespDTO);
     }
 
     @GetMapping(path = "/all")
-    public List<ViewUserRespDTO> getAllUser(){
-        return userService.getAllUser();
+    public ResponseEntity<List<ViewUserRespDTO>> getAllUser() {
+        return ResponseEntity.status(HttpStatus.FOUND).body(userService.getAllUser());
     }
-
-
 
     @DeleteMapping(path = "/{userId}")
-    public void deleteUser(@PathVariable Integer userId){
+    public ResponseEntity<String> deleteUser(@PathVariable Integer userId) {
         userService.deleteUserById(userId);
-        }
-
-        @PutMapping(path = "/{userId}")
-        public UpdateUserRespDTO updateUser(@PathVariable Integer userId, @RequestBody UpdateUserReqDTO updateUserReqDTO){
-
-        User userModel = userMapper.updateUserReqDtoToUser(updateUserReqDTO);
-        return userService.updateUser(userId, userModel);
-        }
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body("Successfully delete.");
     }
+
+    @PutMapping(path = "/{userId}")
+    public ResponseEntity<UpdateUserRespDTO> updateUser(@PathVariable Integer userId, @RequestBody UpdateUserReqDTO updateUserReqDTO) {
+        User userModel = userMapper.updateUserReqDtoToUser(updateUserReqDTO);
+        return ResponseEntity.status(HttpStatus.FOUND).body(userService.updateUser(userId, userModel));
+    }
+
+    @GetMapping(path = "/{userId}")
+    public ResponseEntity<GetUserRespDTO> getUserById(@PathVariable int userId) {
+        return ResponseEntity.ok(userService.getUserById(userId));
+    }
+}
 
